@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('wp.wp-content.themes.gowifi-template.index');
 });
 
 Route::get('nini', function () {
