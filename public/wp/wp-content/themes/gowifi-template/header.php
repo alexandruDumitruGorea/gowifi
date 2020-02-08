@@ -28,7 +28,7 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.html">Home</a>
+                                    <a class="nav-link" href="<?php echo get_home_url() . '/../nini'; ?>">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="features.html">features</a>

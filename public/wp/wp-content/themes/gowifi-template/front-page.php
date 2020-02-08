@@ -377,7 +377,5 @@
   <!-- ================ contact section end ================= -->
 
 <?php
-
     get_footer();
-    
 ?>
