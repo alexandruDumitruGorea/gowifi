@@ -10,11 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// https://github.com/darrencraig/LaraPress
 
 Route::get('/', function () {
-    return view('wp.wp-content.themes.gowifi-template.index');
+    return 'hola';
 });
 
-Route::get('nini', function () {
-    return get_home_url();
-});
+Route::get('nini', 'PruebaController@prueba');
