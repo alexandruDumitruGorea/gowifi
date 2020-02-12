@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('wp');
 });
+
+Route::get('nini', 'PruebaController@prueba');
