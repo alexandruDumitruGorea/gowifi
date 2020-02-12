@@ -58,7 +58,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <a href="#" class="d-none d-sm-block btn_1 home_page_btn">sing up</a>
+                        <a href="{{ url('register') }}" class="d-none d-sm-block btn_1 home_page_btn">sing up</a>
                     </nav>
                 </div>
             </div>
