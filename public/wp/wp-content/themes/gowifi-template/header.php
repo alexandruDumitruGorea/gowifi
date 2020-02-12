@@ -28,7 +28,7 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo get_home_url() . '/../nini'; ?>">Home</a>
+                                    <a class="nav-link" href="<?php echo get_home_url() . '/../'; ?>">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="features.html">features</a>
@@ -44,7 +44,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <a href="#" class="d-none d-sm-block btn_1 home_page_btn">sing up</a>
+                        <a href="<?php echo get_home_url() . '/../register'; ?>" class="d-none d-sm-block btn_1 home_page_btn">sing up</a>
                     </nav>
                 </div>
             </div>
