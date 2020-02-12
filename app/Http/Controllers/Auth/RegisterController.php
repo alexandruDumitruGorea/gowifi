@@ -40,6 +40,15 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    
+    // Evitamos el logeo automático
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        $request->session()->flash('op', 'registered');
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -68,6 +77,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            // Asignar rol del usuario
         ]);
     }
 }
