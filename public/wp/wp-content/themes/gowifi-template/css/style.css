@@ -6338,3 +6338,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/*MY OWN STYLE*/
+.main_menu-laravel {
+  background-color: #1056d8;
+  position: sticky;
+  left: 0;
+  top: 0;
+}
+
+.main_menu-laravel .home_page_btn {
+    color: #fff;
+}
+.main_menu-laravel .btn_1 {
+    border: 1px solid #fff;
+    color: #fff;
+}

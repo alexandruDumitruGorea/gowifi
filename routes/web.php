@@ -15,4 +15,4 @@ Route::get('/', function () {
     return redirect('wp');
 });
 
-Route::get('nini', 'PruebaController@prueba');
+Auth::routes(['verify' => true]);
