@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -40,6 +42,15 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    
+    // Evitamos el logeo automático
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        $request->session()->flash('op', 'registered');
+        return $this->registered($request, $user) ?: redirect($this->redirectPath());
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -68,6 +79,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'api_token' => Str::random(80),
+            // Asignar rol del usuario
         ]);
     }
 }
