@@ -204,7 +204,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = null ) {
 
 	?>
 	<div id="login">
-		<h1><a href="<?php echo esc_url( $login_header_url ); ?>"><?php echo $login_header_text; ?></a></h1>
+		<!--<h1><a href="<?php echo esc_url( $login_header_url ); ?>"><?php echo $login_header_text; ?></a></h1>-->
 	<?php
 	/**
 	 * Filters the message to display above the login form.
@@ -281,7 +281,7 @@ function login_footer( $input_id = '' ) {
 		<?php
 
 		/* translators: %s: Site title. */
-		printf( _x( '&larr; Back to %s', 'site' ), get_bloginfo( 'title', 'display' ) );
+		printf( '&larr; Back to %s', 'site', get_bloginfo( 'title', 'display' ) );
 
 		?>
 		</a></p>
@@ -1301,9 +1301,14 @@ switch ( $action ) {
 				$errors->add( 'expired', __( 'Your session has expired. Please log in to continue where you left off.' ), 'message' );
 			}
 		} else {
+			if ( isset($_GET['noverify']) ) {
+				$errors->add( 'loginfail', 'Could not identify, verification email resent.', 'message' );
+			} else if( isset($_GET['loginfail']) ) {
+				$errors->add( 'loginfail', '', 'login_error' );
+			}
 			// Some parts of this script use the main login form to display a message.
 			if ( isset( $_GET['loggedout'] ) && $_GET['loggedout'] ) {
-				$errors->add( 'loggedout', __( 'You are now logged out.' ), 'message' );
+				$errors->add( 'loggedout', 'You are now logged out.', 'message' );
 			} elseif ( isset( $_GET['registration'] ) && 'disabled' === $_GET['registration'] ) {
 				$errors->add( 'registerdisabled', __( 'User registration is currently not allowed.' ) );
 			} elseif ( isset( $_GET['checkemail'] ) && 'confirm' === $_GET['checkemail'] ) {
@@ -1350,57 +1355,63 @@ switch ( $action ) {
 
 		wp_enqueue_script( 'user-profile' );
 		?>
-
-		<form name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
-			<p>
-				<label for="user_login"><?php _e( 'Username or Email Address' ); ?></label>
-				<input type="text" name="log" id="user_login"<?php echo $aria_describedby_error; ?> class="input" value="<?php echo esc_attr( $user_login ); ?>" size="20" autocapitalize="off" />
-			</p>
-
-			<div class="user-pass-wrap">
-				<label for="user_pass"><?php _e( 'Password' ); ?></label>
-				<div class="wp-pwd">
-					<input type="password" name="pwd" id="user_pass"<?php echo $aria_describedby_error; ?> class="input password-input" value="" size="20" />
-					<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
-						<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
-					</button>
+		
+		<?php get_header('change');	?>
+		
+		<div class="card-body">
+			<form name="loginform" id="loginform" action="<?php echo get_home_url(); ?>/../login" method="post">
+				<div class="form-group row">
+					<label for="user_login" class="col-md-12 col-form-label text-md-left">Email Address</label>
+					<div class="col-md-12">
+						<input type="text" name="email" id="user_login"<?php echo $aria_describedby_error; ?> class="input form-control" value="<?php echo esc_attr( $user_login ); ?>" size="20" autocapitalize="off" />
+					</div>
 				</div>
-			</div>
-			<?php
-
-			/**
-			 * Fires following the 'Password' field in the login form.
-			 *
-			 * @since 2.1.0
-			 */
-			do_action( 'login_form' );
-
-			?>
-			<p class="forgetmenot"><input name="rememberme" type="checkbox" id="rememberme" value="forever" <?php checked( $rememberme ); ?> /> <label for="rememberme"><?php esc_html_e( 'Remember Me' ); ?></label></p>
-			<p class="submit">
-				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In' ); ?>" />
+	
+				<div class="user-pass-wrap">
+					<label for="user_pass">Password</label>
+					<div class="wp-pwd">
+						<input type="password" name="password" id="user_pass"<?php echo $aria_describedby_error; ?> class="input password-input form-control" value="" size="20" />
+						<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Show password">
+							<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
 				<?php
-
-				if ( $interim_login ) {
-					?>
-					<input type="hidden" name="interim-login" value="1" />
-					<?php
-				} else {
-					?>
-					<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>" />
-					<?php
-				}
-
-				if ( $customize_login ) {
-					?>
-					<input type="hidden" name="customize-login" value="1" />
-					<?php
-				}
-
+	
+				/**
+				 * Fires following the 'Password' field in the login form.
+				 *
+				 * @since 2.1.0
+				 */
+				do_action( 'login_form' );
+	
 				?>
-				<input type="hidden" name="testcookie" value="1" />
-			</p>
-		</form>
+				<p class="forgetmenot"><input name="rememberme" type="checkbox" id="rememberme" value="forever" <?php checked( $rememberme ); ?> /> <label for="rememberme">Remember Me</label></p>
+				<p class="submit">
+					<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large btn-primary" value="Log In" />
+					<?php
+	
+					if ( $interim_login ) {
+						?>
+						<input type="hidden" name="interim-login" value="1" />
+						<?php
+					} else {
+						?>
+						<input type="hidden" name="redirect_to" value="<?php echo esc_attr( home_url() ); ?>" />
+						<?php
+					}
+	
+					if ( $customize_login ) {
+						?>
+						<input type="hidden" name="customize-login" value="1" />
+						<?php
+					}
+	
+					?>
+					<input type="hidden" name="testcookie" value="1" />
+				</p>
+			</form>
+		</div>
 
 		<?php
 
@@ -1420,7 +1431,7 @@ switch ( $action ) {
 					}
 
 					?>
-					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php _e( 'Lost your password?' ); ?></a>
+					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>">Lost your password?</a>
 					<?php
 				}
 

@@ -58,7 +58,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <a href="{{ url('register') }}" class="d-none d-sm-block btn_1 home_page_btn">sing up</a>
+                        @auth
+                            <form class="form-inline my-2 my-lg-0" action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="d-none d-sm-block btn_1 home_page_btn">
+                                    {{ __('Logout') }}
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ url('register') }}" class="d-none d-sm-block btn_1 home_page_btn">Register</a>
+                        @endauth
                     </nav>
                 </div>
             </div>

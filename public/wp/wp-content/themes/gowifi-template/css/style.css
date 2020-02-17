@@ -2307,7 +2307,7 @@ ul {
 
 /* line 30, ../../01 cl html template/03_jun 2019/185 Ecobit SAAS html/sass/_menu.scss */
 .main_menu .navbar-nav {
-  margin-left: -140px;
+  /*margin-left: -140px;*/
 }
 
 /* line 33, ../../01 cl html template/03_jun 2019/185 Ecobit SAAS html/sass/_menu.scss */
@@ -5707,6 +5707,10 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 
+.accordion_part .btn-link, .accordion_part .page-link, .accordion_part .text-primary {
+  color: #182028 !important;
+}
+
 /* line 49, ../../01 cl html template/03_jun 2019/185 Ecobit SAAS html/sass/_accordion.scss */
 .accordion_part .btn {
   text-align: left !important;
@@ -6348,10 +6352,53 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 50px;
 }
 
+.main_menu-wp {
+  position: fixed;
+  background-color: #1056d8;
+  margin-bottom: 0;
+}
+
 .main_menu-laravel .home_page_btn {
     color: #fff;
 }
 .main_menu-laravel .btn_1 {
     border: 1px solid #fff;
     color: #fff;
+}
+
+.btn_1-noborde, .main_menu-wp .btn_1-noborde {
+  border: none;
+}
+
+.btn_1-noborde:hover {
+  color: #000 !important;
+  background-color: transparent;
+}
+
+.menu_fixed .btn_1-noborde {
+  border: none;
+}
+
+.menu_fixed .btn_1-noborde:hover, .main_menu-wp .btn_1-noborde {
+  border: none;
+  color: #fff !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.mt-wp {
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+#wp-submit.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
 }

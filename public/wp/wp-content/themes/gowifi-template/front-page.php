@@ -35,7 +35,7 @@
     <!--::banner part start::-->
 
     <!--::use sasu part end::-->
-    <section class="use_sasu">
+    <section class="use_sasu" id="whyus">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-sm-6">
@@ -183,7 +183,7 @@
     <!--::about_us part end::-->
 
     <!--::accordion part start::-->
-    <section class="accordion_part padding_bottom">
+    <section class="accordion_part padding_bottom" id="faqs">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -312,7 +312,7 @@
     <!--::subscribe us part end::-->
 
     <!-- ================ contact section Start ================= -->
-    <section class="contact-section section_padding">
+    <section class="contact-section section_padding" id="contact">
         <div class="container">
             <div class="row">
             <div class="col-12">

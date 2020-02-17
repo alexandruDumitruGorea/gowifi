@@ -76,13 +76,40 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //API URL
+        $url = 'http://informatica.ieszaidinvergeles.org:9028/gowifi/public/wp/wp-json/custom-api/register';
+        
+        //create a new cURL resource
+        $ch = curl_init($url);
+        
+        //setup request to send json via POST
+        $datawp = array(
+            'username' => $data['name'],
+            'password' => $data['password'],
+            'email' => $data['email'],
+        );
+        $payload = json_encode($datawp);
+        
+        //attach encoded JSON string to the POST fields
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        
+        //set the content type to application/json
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        
+        //return response instead of outputting
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        //execute the POST request
+        $result = curl_exec($ch);
+        
+        //close cURL resource
+        curl_close($ch);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(80),
             'rol_id' => 3,
-            // Asignar rol del usuario
         ]);
     }
 }

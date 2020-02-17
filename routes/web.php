@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+
+Route::get('logout', 'NavController@logout');
+
+Route::resource('thecnical', 'ThecnicalController');
