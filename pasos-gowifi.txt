@@ -1,0 +1,24 @@
+*Explicación de lo que queremos hacer*
+    - Queremos hacer un usuario admin que pueda dar de alta a un usuario técnico
+    - El admin puede ver estadísticas de todo tipo
+    - El técnico solo puede ver estadísticas de los puntos de acceso que ha instalado
+    - Los usuarios normales pueden ver los puntos de acceso y conectarse a ellos
+
+* Pensar tipo de estadísticas *
+
+PASOS A SEGUIR PARA ACABAR EL PROYECTO
+======================================
+    - Crear usuario admin
+        # Se cambia en la BD para que sea admin
+
+    - Dejar que el admin pueda crear técnicos
+        # Se crea el recurso para la creación
+    
+    - Crear el recurso para que se creen puntos de acceso
+
+    - Controlar con middleware el acceso
+
+    - Hacer API para la conexión
+
+    - Hacer estadísticas
+        # Vamos a unsar Char.js para las estadísticas

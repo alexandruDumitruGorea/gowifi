@@ -8,10 +8,18 @@ require('custom-functions/scripts.php');
 function register_api_hooks() {
 
     register_rest_route(
-        'custom-plugin', '/login/',
+        'custom-api', '/login/',
         array(
             'methods'  => array('GET', 'POST'),
             'callback' => 'login',
+        )
+    );
+    
+    register_rest_route(
+        'custom-api', '/register/',
+        array(
+            'methods'  => array('GET', 'POST'),
+            'callback' => 'register',
         )
     );
     
@@ -26,6 +34,10 @@ function register_api_hooks() {
           $user = "fuck";
         }
         return $user;
+    }
+    
+    function register() {
+        return 'hola';
     }
 }
 add_action( 'rest_api_init', 'register_api_hooks' );
