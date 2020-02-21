@@ -1,6 +1,6 @@
 <?php
     /*
-        Template name: Register
+        Template name: ResetPassword
     */
 ?>
 <?php
@@ -12,16 +12,8 @@
             <div class="card">
 
                 <div class="card-body">
-                    <form method="POST" action="<?php echo get_home_url(); ?>/../register">
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="" required autocomplete="name" autofocus>
-                            </div>
-                        </div>
-
+                    <form method="POST" action="<?php echo get_home_url(); ?>/../password/reset">
+                        <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>">
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
@@ -49,12 +41,8 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Reset Password
                                 </button>
-                                
-                                <a class="btn btn-link" href="<?php echo get_home_url() . '/wp-login.php'; ?>">
-                                    You already have an account?
-                                </a>
                             </div>
                         </div>
                     </form>

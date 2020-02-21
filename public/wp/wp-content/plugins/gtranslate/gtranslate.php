@@ -3,14 +3,14 @@
 Plugin Name: GTranslate
 Plugin URI: https://gtranslate.io/?xyz=998
 Description: Makes your website <strong>multilingual</strong> and available to the world using Google Translate. For support visit <a href="https://wordpress.org/support/plugin/gtranslate">GTranslate Support</a>.
-Version: 2.8.51
+Version: 2.8.52
 Author: Translate AI Multilingual Solutions
 Author URI: https://gtranslate.io
 Text Domain: gtranslate
 
 */
 
-/*  Copyright 2010 - 2019 Edvard Ananyan  (email : edo888@gmail.com)
+/*  Copyright 2010 - 2020 Edvard Ananyan  (email : edo888@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1959,11 +1959,11 @@ if($data['add_hreflang_tags'] and ($data['pro_version'] or $data['enterprise_ver
         if($current_url !== false) {
             // adding default language
             if($data['default_language'] === 'iw')
-                echo '<link rel="alternate" hreflang="he" href="'.$current_url.'" />'."\n";
+                echo '<link rel="alternate" hreflang="he" href="'.esc_url($current_url).'" />'."\n";
             elseif($data['default_language'] === 'jw')
-                echo '<link rel="alternate" hreflang="jv" href="'.$current_url.'" />'."\n";
+                echo '<link rel="alternate" hreflang="jv" href="'.esc_url($current_url).'" />'."\n";
             else
-                echo '<link rel="alternate" hreflang="'.$data['default_language'].'" href="'.$current_url.'" />'."\n";
+                echo '<link rel="alternate" hreflang="'.$data['default_language'].'" href="'.esc_url($current_url).'" />'."\n";
 
             // adding enabled languages
             foreach($enabled_languages as $lang) {
@@ -1977,11 +1977,11 @@ if($data['add_hreflang_tags'] and ($data['pro_version'] or $data['enterprise_ver
 
                 if(!empty($href) and $lang != $data['default_language']) {
                     if($lang === 'iw')
-                        echo '<link rel="alternate" hreflang="he" href="'.$href.'" />'."\n";
+                        echo '<link rel="alternate" hreflang="he" href="'.esc_url($href).'" />'."\n";
                     elseif($lang === 'jw')
-                        echo '<link rel="alternate" hreflang="jv" href="'.$href.'" />'."\n";
+                        echo '<link rel="alternate" hreflang="jv" href="'.esc_url($href).'" />'."\n";
                     else
-                        echo '<link rel="alternate" hreflang="'.$lang.'" href="'.$href.'" />'."\n";
+                        echo '<link rel="alternate" hreflang="'.$lang.'" href="'.esc_url($href).'" />'."\n";
                 }
             }
         }
@@ -2266,8 +2266,6 @@ if($data['pro_version'] or $data['enterprise_version']) {
                     if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) and !empty($_SERVER['HTTP_X_FORWARDED_FOR']))
                         $headers[] = 'X-GT-Forwarded-For: ' . $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-                    //file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Request URL: ' . $protocol.'://'.$server.'.tdn.gtranslate.net'.wp_make_link_relative(plugins_url('gtranslate/url_addon/gtranslate-email.php')) . "\n", FILE_APPEND);
-
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $protocol.'://'.$server.'.tdn.gtranslate.net'.wp_make_link_relative(plugins_url('gtranslate/url_addon/gtranslate-email.php').'?glang='.$_SERVER['HTTP_X_GT_LANG']));
                     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -2278,19 +2276,18 @@ if($data['pro_version'] or $data['enterprise_version']) {
                     curl_setopt($ch, CURLOPT_POST, 1);
                     curl_setopt($ch, CURLOPT_POSTFIELDS, array('body' => do_shortcode("<subject>$subject</subject><message>$message</message>"), 'access_key' => md5(substr(NONCE_SALT, 0, 10) . substr(NONCE_KEY, 0, 5))));
 
-                    // Debug
-                    if(false) {
-                        $fh = fopen(dirname(__FILE__) . '/url_addon/debug.txt', 'a');
-                        curl_setopt($ch, CURLOPT_VERBOSE, true);
-                        curl_setopt($ch, CURLOPT_STDERR, $fh);
-                    }
+                    //$fh = fopen(dirname(__FILE__) . '/url_addon/debug.txt', 'a');
+                    //curl_setopt($ch, CURLOPT_VERBOSE, true);
+                    //curl_setopt($ch, CURLOPT_STDERR, $fh);
 
                     $response = curl_exec($ch);
                     $response_info = curl_getinfo($ch);
                     curl_close($ch);
 
-                    //file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Response: ' . $response . "\n", FILE_APPEND);
-                    //file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Response_info: ' . print_r($response_info, true) . "\n", FILE_APPEND);
+                    if($debug) {
+                        file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Response: ' . $response . "\n", FILE_APPEND);
+                        file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Response_info: ' . print_r($response_info, true) . "\n", FILE_APPEND);
+                    }
 
                     if(isset($response_info['http_code']) and $response_info['http_code'] == 200) {
                         if($data['pro_version'])
@@ -2303,8 +2300,10 @@ if($data['pro_version'] or $data['enterprise_version']) {
                             $subject = $matches[1][0];
                             $message = $matches[2][0];
 
-                            //file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Translated Subject: ' . $subject . "\n", FILE_APPEND);
-                            //file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Translated Message: ' . $message . "\n", FILE_APPEND);
+                            if($debug) {
+                                file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Translated Subject: ' . $subject . "\n", FILE_APPEND);
+                                file_put_contents(dirname(__FILE__) . '/url_addon/debug.txt', 'Translated Message: ' . $message . "\n", FILE_APPEND);
+                            }
 
                             $args['subject'] = $subject;
                             $args['message'] = $message;
@@ -2316,7 +2315,7 @@ if($data['pro_version'] or $data['enterprise_version']) {
             return $args;
         }
 
-        add_filter('wp_mail', 'gt_translate_emails', 10, 1);
+        add_filter('wp_mail', 'gt_translate_emails', 10000, 1);
     }
 }
 

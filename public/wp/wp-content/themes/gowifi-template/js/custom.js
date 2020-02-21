@@ -101,4 +101,12 @@ jQuery(document).ready(function ($) {
   
   
   }(jQuery));
+  
+  // MENSAGES
+  if($('#custom-message') != null) {
+    setTimeout(function(){ 
+      // $('#custom-message').fadeOut(250);
+      $('#custom-message').slideUp(250);
+    }, 3000);
+  }
 })

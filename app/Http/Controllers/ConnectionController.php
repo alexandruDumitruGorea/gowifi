@@ -5,81 +5,76 @@ namespace App\Http\Controllers;
 use App\Connection;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+use App\UserAccessPoint;
+
 class ConnectionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    private $userLaravelID;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        // file_put_contents('prueba.txt', $request->getContent()."\n", FILE_APPEND | LOCK_EX);
+        $this->validator($request->all())->validate();
+        try {
+            $this->createConnection($request->all());
+        } catch(\Exception $e) {
+            return response()->json('todo mal');
+        }
+        return response()->json('todo bien');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Connection  $connection
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Connection $connection)
+    
+    private function validator(array $data)
     {
-        //
+        return Validator::make($data, [
+            'fecha' => ['required', 'string'],
+            'hora' => ['required', 'string'],
+            'idpuntoacceso' => ['required', 'integer', 'exists:access_point,id'],
+            'mac' => ['required', 'string'],
+        ]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Connection  $connection
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Connection $connection)
+    
+    private function createConnection(array $data)
     {
-        //
+        return Connection::create([
+            'id_access_point' => $data['idpuntoacceso'],
+            'date' => $data['fecha'],
+            'hour' => $data['hora'],
+            'mac' => $data['mac'],
+        ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Connection  $connection
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Connection $connection)
+    
+    public function storeconection(Request $request)
     {
-        //
+        $this->userLaravelID = $request->user()->id;
+        // dd(exec('arp -an'));
+        $this->validator($request->all())->validate();
+        try {
+            $this->createUserConnection($request->all());
+            $this->createUserAccessPointConnection($request->all());
+        } catch(\Exception $e) {
+            return redirect('wp/createtechnical?technicalCreateError=true&oldname=' . $request['name'] . '&oldemail=' . $request['email']);
+        }
+        return redirect('wp/indextechnical?technicalCreate=true');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Connection  $connection
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Connection $connection)
+    
+    private function createUserConnection(array $data)
     {
-        //
+        $now = Carbon::now();
+        return Connection::create([
+            'id_access_point' => $data['id_access_point'],
+            'date' => $now->format('Y-m-d'),
+            'hour' => $now->format('H:i:s'),
+            'mac' => '40-30-20-10-00',
+        ]);
+    }
+    
+    private function createUserAccessPointConnection(array $data)
+    {
+        return UserAccessPoint::create([
+            'id_user' => $this->userLaravelID,
+            'id_access_point' => $data['id_access_point'],
+        ]);
     }
 }

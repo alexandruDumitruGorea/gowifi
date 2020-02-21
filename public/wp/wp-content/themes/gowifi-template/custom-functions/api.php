@@ -32,6 +32,14 @@ function register_api_hooks() {
         )
     );
     
+    register_rest_route(
+        'custom-api', '/resetpassword/',
+        array(
+            'methods'  => array('GET', 'POST'),
+            'callback' => 'resetpassword',
+        )
+    );
+    
     function login($request){
         $userLaravel = get_user_by( 'email', $request['email'] );
         $creds = array();
@@ -52,6 +60,13 @@ function register_api_hooks() {
           $user = "Se ha producido un error al registrar un usuario";
         }
         return $user;
+    }
+    
+    function resetpassword($request) {
+        $userLaravel = get_user_by( 'email', $request['email'] );
+        $pass = $request['password'];
+        wp_set_password($pass, $userLaravel->ID);
+        wp_redirect( home_url() ); exit;
     }
 }
 add_action( 'rest_api_init', 'register_api_hooks' );

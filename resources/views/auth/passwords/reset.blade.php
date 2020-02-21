@@ -1,3 +1,12 @@
+<?php
+    $url = $_SERVER['REQUEST_URI'];
+    $urlRota = explode("/", $url);
+    $token = $urlRota[5];
+    $sitio = $_SERVER['HTTP_HOST'].'/'.$urlRota[1].'/'.$urlRota[2];
+    $urlRedirect = 'http://'.$sitio.'/wp/resetpassword?token='.$token;
+    header('Location: '.$urlRedirect);
+    exit;
+?>
 @extends('base')
 
 @section('content')

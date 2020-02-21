@@ -830,7 +830,7 @@ switch ( $action ) {
 		 */
 		do_action( 'lost_password', $errors );
 
-		login_header( __( 'Lost Password' ), '<p class="message">' . __( 'Please enter your username or email address. You will receive a link to create a new password via email.' ) . '</p>', $errors );
+		login_header( __( 'Lost Password' ), '<p class="message">' . 'Please enter your username or email address. You will receive a link to create a new password via email.' . '</p>', $errors );
 
 		$user_login = '';
 
@@ -839,11 +839,13 @@ switch ( $action ) {
 		}
 
 		?>
+		
+		<?php get_header('change');	?>
 
-		<form name="lostpasswordform" id="lostpasswordform" action="<?php echo esc_url( network_site_url( 'wp-login.php?action=lostpassword', 'login_post' ) ); ?>" method="post">
+		<form name="lostpasswordform" id="lostpasswordform" action="<?php echo home_url() . '/../password/email' ; ?>" method="post">
 			<p>
-				<label for="user_login"><?php _e( 'Username or Email Address' ); ?></label>
-				<input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr( $user_login ); ?>" size="20" autocapitalize="off" />
+				<label for="user_login">Email Address</label>
+				<input type="text" name="email" id="email" class="input form-control" size="20" autocapitalize="off" />
 			</p>
 			<?php
 
@@ -855,14 +857,14 @@ switch ( $action ) {
 			do_action( 'lostpassword_form' );
 
 			?>
-			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>" />
+			<input type="hidden" name="redirect_to" value="<?php echo home_url().'wp-login.php'; ?>" />
 			<p class="submit">
-				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Get New Password' ); ?>" />
+				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large btn-primary" value="Get New Password" />
 			</p>
 		</form>
 
 		<p id="nav">
-			<a href="<?php echo esc_url( wp_login_url() ); ?>"><?php _e( 'Log in' ); ?></a>
+			<a href="<?php echo esc_url( wp_login_url() ); ?>">Log in</a>
 			<?php
 
 			if ( get_option( 'users_can_register' ) ) {

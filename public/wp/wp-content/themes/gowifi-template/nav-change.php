@@ -20,31 +20,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo get_option("Home"); ?>#contact">Contact</a>
             </li>
+            <?php
+            if(is_user_logged_in()) {
+            ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo get_page_link(get_page_by_title('UserAccessPoints')->ID);?>">Access Points</a>
+                </li>
+            <?php
+            }
+            ?>
         </ul>
     <?php echo do_shortcode('[gtranslate]'); ?>
     </div>
     <?php
         if(is_user_logged_in()) {
-            $url = 'http://informatica.ieszaidinvergeles.org:9028/gowifi/public/api/role';
-            $ch = curl_init($url);
-            $datawp = array(
-                'email' => wp_get_current_user()->user_email
-            );
-            $payload = json_encode($datawp);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $result = json_decode($result, true);
-            $rol = $result['user'][0]["rol_id"];
-        ?>
+            if(is_technical_laravel() || is_admin_laravel()) {
+            ?>
+                <a href="<?php echo get_page_link(get_page_by_title('AdminPanelIndex')->ID);?>" class="d-none d-sm-block btn_1 btn_1-noborde home_page_btn">Admin</a>
             <?php
-                if($rol <= 2) {
-                ?>
-                    <a href="<?php echo get_page_link(get_page_by_title('AdminPanelIndex')->ID);?>" class="d-none d-sm-block btn_1 btn_1-noborde home_page_btn">Admin</a>
-                <?php
-                }
+            }
             ?>
             <a href="<?php echo get_home_url(); ?>/../logout" class="d-none d-sm-block btn_1 home_page_btn">Log out</a>
         <?php

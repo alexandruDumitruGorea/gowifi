@@ -33,7 +33,6 @@
         <img src="<?php echo get_template_directory_uri();?>/img/animate_icon/Ellipse_4.png" alt="" class="feature_icon_6 custom-animation6">
     </section>
     <!--::banner part start::-->
-
     <!--::use sasu part end::-->
     <section class="use_sasu" id="whyus">
         <div class="container">

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Thecnical;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -11,8 +10,13 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
-class ThecnicalController extends Controller
+use Illuminate\Foundation\Auth\RegistersUsers;
+
+class TechnicalController extends Controller
 {
+    
+    use RegistersUsers;
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,21 +24,10 @@ class ThecnicalController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        if(\Auth::check()) {
-            return view('admin.thecnical.create');
-        } else {
-            return 'mierda';
-        }
+        $technicals = User::where('rol_id', '2')->paginate(User::where('rol_id', '2')->count());
+        return response()->json([
+            'data' => $technicals,
+        ]);
     }
 
     /**
@@ -45,18 +38,23 @@ class ThecnicalController extends Controller
      */
     public function store(Request $request)
     {
+        if(!$this->existTechnical($request['email'])->isEmpty()) {
+            return redirect('wp/createtechnical?technicalCreateError=true&oldname=' . $request['name'] . '&oldemail=' . $request['email']);
+            exit;
+        }
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->createUser($request->all())));
-        $request->session()->flash('op', 'registered');
         try {
             $this->registered($request, $user);
-            // $user->markEmailAsVerified();
-            $request->session()->flash('op', 'createSpeaker');
         } catch(\Exception $e) {
-            $request->session()->flash('op', 'errorCreateSpeaker');
-            return redirect(route('thecnical.create'))->withInput();
+            dd('quepasa');
+            return redirect('wp/createtechnical?technicalCreateError=true&oldname=' . $request['name'] . '&oldemail=' . $request['email']);
         }
-        return redirect(url('admin'));
+        return redirect('wp/indextechnicians?technicalCreate=true');
+    }
+    
+    private function existTechnical(string $email) {
+        return User::where('email', $email)->get();
     }
     
     private function validator(array $data)
@@ -73,7 +71,7 @@ class ThecnicalController extends Controller
         $ch = curl_init($url);
         $datawp = array(
             'username' => $data['name'],
-            'password' => $data['password'],
+            'password' => '12345678',
             'email' => $data['email'],
         );
         $payload = json_encode($datawp);
@@ -85,7 +83,7 @@ class ThecnicalController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make('12345678'),
             'api_token' => Str::random(80),
             'rol_id' => 2,
         ]);
@@ -97,7 +95,7 @@ class ThecnicalController extends Controller
      * @param  \App\Thecnical  $thecnical
      * @return \Illuminate\Http\Response
      */
-    public function show(Thecnical $thecnical)
+    public function show($thecnical_id)
     {
         //
     }
@@ -108,9 +106,10 @@ class ThecnicalController extends Controller
      * @param  \App\Thecnical  $thecnical
      * @return \Illuminate\Http\Response
      */
-    public function edit(Thecnical $thecnical)
+    public function edit($thecnical_id)
     {
-        //
+        $technical = User::where('id', $thecnical_id)->get();
+        return redirect('wp/createtechnical?oldname=' . $technical[0]->name . '&oldemail=' . $technical[0]->email);
     }
 
     /**

@@ -17,4 +17,12 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::post('role', 'NavController@role');
+// Route::post('role', 'NavController@role');
+
+// Route::group(['middleware' => 'web'], function () {
+//     Route::get('csrfToken', 'NavController@csrf_token_for_wp');
+// });
+
+// Route::group(['middleware' => 'auth:api'], function() {
+    Route::post('connection', 'ConnectionController@store');
+// });
