@@ -18,12 +18,14 @@ class CreateAccessPointsTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
             
+            // id, iduser, modelo, ubicación, latitud, longitud, fechaalta
             $table->bigIncrements('id');
             $table->bigInteger('id_technical')->unsigned()->nullable(false);
             $table->string('model', 100);
             $table->string('location');
             $table->string('latitude');
-            $table->date('date');
+            $table->string('longitude');
+            $table->date('date_register');
             
             $table->timestamps();
             $table->softDeletes();

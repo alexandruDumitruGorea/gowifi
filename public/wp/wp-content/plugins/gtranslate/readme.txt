@@ -4,7 +4,7 @@ Author: Translate AI Multilingual Solutions
 Tags: translate, translate wordpress, multilingual, translation, translate language, bilingual, localization, translation proxy, localisation, multilanguage, google translate
 Requires at least: 2.8.1
 Tested up to: 5.3
-Stable tag: 2.8.51
+Stable tag: 2.8.52
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://gtranslate.io/?xyz=998#pricing
@@ -247,6 +247,10 @@ If you want us to translate your website professionally or provide you a proofre
 8. User Dashboard
 
 == Changelog ==
+= 2.8.52 =
+* Cross-site scripting (XSS) vulnerability fixed: Only possible for sub-domain, sub-directory paid options with hreflang tags enabled:
+An attacker can generate a malicious link and if followed by a victim then javascript code can be executed on victim's computer
+
 = 2.8.51 =
 * Translate WooCommerce Emails feature added, now we are in beta testing stage.
 * Minor issue solved related to http request headers in Sub-directory URL structure

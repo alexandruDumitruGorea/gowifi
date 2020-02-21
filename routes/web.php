@@ -16,3 +16,25 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+
+Route::get('logout', 'NavController@logout');
+
+Route::get('sabersiconectado', 'NavController@sabersiconectado');
+
+Route::resource('technical', 'TechnicalController');
+
+Route::post('role', 'NavController@role');
+
+Route::get('csrfToken', 'NavController@csrf_token_for_wp');
+
+Route::resource('accesspoint', 'AccessPointController');
+
+Route::get('numConnectionsByDaY', 'ChartController@numConnectionsByDaY');
+
+Route::get('numAccessPointByTechnical', 'ChartController@numAccessPointByTechnical');
+
+Route::get('redirectwpresetpass/{token}', 'NavController@redirectwpresetpass');
+
+Route::post('connectionuser', 'ConnectionController@storeconection');
+
+Route::resource('activehour', 'ActiveController');

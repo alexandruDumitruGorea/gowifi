@@ -53,9 +53,9 @@ jQuery(document).ready(function ($) {
     $(window).scroll(function () {
       var window_top = $(window).scrollTop() + 1;
       if (window_top > 50) {
-        if (!$('.main_menu').hasClass('main_menu-laravel')) {
+        // if (!$('.main_menu').hasClass('main_menu-laravel')) {
           $('.main_menu').addClass('menu_fixed animated fadeInDown');
-        }
+        // }
       } else {
         $('.main_menu').removeClass('menu_fixed animated fadeInDown');
       }
@@ -101,4 +101,12 @@ jQuery(document).ready(function ($) {
   
   
   }(jQuery));
+  
+  // MENSAGES
+  if($('#custom-message') != null) {
+    setTimeout(function(){ 
+      // $('#custom-message').fadeOut(250);
+      $('#custom-message').slideUp(250);
+    }, 3000);
+  }
 })

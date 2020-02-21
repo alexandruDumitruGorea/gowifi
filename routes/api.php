@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// Route::post('role', 'NavController@role');
+
+// Route::group(['middleware' => 'web'], function () {
+//     Route::get('csrfToken', 'NavController@csrf_token_for_wp');
+// });
+
+// Route::group(['middleware' => 'auth:api'], function() {
+    Route::post('connection', 'ConnectionController@store');
+// });
