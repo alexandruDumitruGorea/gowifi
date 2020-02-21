@@ -53,7 +53,7 @@ jQuery(document).ready(function ($) {
     }
     
     if(document.getElementById('dataTableTechnicians') != null) {
-        request('http://informatica.ieszaidinvergeles.org:9028/gowifi/public/technical', '#dataTableTechnicians', getTrTechnicians);
+        request('../../technical', '#dataTableTechnicians', getTrTechnicians);
     }
     
     var getTrAccessPoints = function(row, num) {
@@ -71,7 +71,7 @@ jQuery(document).ready(function ($) {
     }
     
     if(document.getElementById('dataTableAccessPoints') != null) {
-        request('http://informatica.ieszaidinvergeles.org:9028/gowifi/public/accesspoint', '#dataTableAccessPoints', getTrAccessPoints);
+        request('../../accesspoint', '#dataTableAccessPoints', getTrAccessPoints);
     }
     
     var getTrUserAccessPoints = function(row, num) {
@@ -94,7 +94,7 @@ jQuery(document).ready(function ($) {
     }
     
     if(document.getElementById('dataTableUserAccessPoints') != null) {
-        request('http://informatica.ieszaidinvergeles.org:9028/gowifi/public/accesspoint', '#dataTableUserAccessPoints', getTrUserAccessPoints);
+        request('../../accesspoint', '#dataTableUserAccessPoints', getTrUserAccessPoints);
     }
     
     var getTrActiveHours = function(row, num) {
@@ -105,21 +105,11 @@ jQuery(document).ready(function ($) {
         content += `<td>${row.start_hour}</td>`;
         content += `<td>${row.end_hour}</td>`;
         content += `<td>${row.minium_period}</td>`;
-        content += `<td>
-                        <form method="POST" action="../../connectionuser">
-                            <input type="hidden" name="id_access_point" value="${row.id}">
-                            <input type="hidden" name="api_token" value="${document.getElementById('apiToken').textContent}">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-power-off">
-                                Connect
-                            </button>
-                        </form>
-                    </td>`;
         return `<tr>${content}</tr>`;
     }
     
     if(document.getElementById('dataTableActiveHours') != null) {
-        request('http://informatica.ieszaidinvergeles.org:9028/gowifi/public/activehour', '#dataTableActiveHours', getTrActiveHours);
+        request('../../activehour', '#dataTableActiveHours', getTrActiveHours);
     }
     
 });

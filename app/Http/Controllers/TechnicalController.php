@@ -47,7 +47,6 @@ class TechnicalController extends Controller
         try {
             $this->registered($request, $user);
         } catch(\Exception $e) {
-            dd('quepasa');
             return redirect('wp/createtechnical?technicalCreateError=true&oldname=' . $request['name'] . '&oldemail=' . $request['email']);
         }
         return redirect('wp/indextechnicians?technicalCreate=true');
