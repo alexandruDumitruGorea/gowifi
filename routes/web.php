@@ -38,3 +38,5 @@ Route::get('redirectwpresetpass/{token}', 'NavController@redirectwpresetpass');
 Route::post('connectionuser', 'ConnectionController@storeconection');
 
 Route::resource('activehour', 'ActiveController');
+
+Route::delete('delactivehour/{activeid}', 'ActiveController@destroy');

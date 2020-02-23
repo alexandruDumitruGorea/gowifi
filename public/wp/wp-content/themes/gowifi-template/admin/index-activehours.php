@@ -11,7 +11,8 @@
 ?>
 <?php
 	$messages = [
-		'activeHourCreate' => 'Se ha creado una hora activa.'
+		'activeHourCreate' => 'Se ha creado una hora activa.',
+		'activeHourDelete' => 'Se ha borrado una hora activa.'
 	];
 ?>
 <div id="layoutSidenav">
@@ -34,6 +35,16 @@
 		                </div>
 	            <?php
 	            	}
+	            	
+	            	if ( isset($_GET['activeHourDelete']) && isset($messages['activeHourDelete'])) {
+	            ?>
+		            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
+		                    <div class="card bg-success text-white mb-4">
+		                        <div class="card-body"><?php echo $messages['activeHourDelete']; ?></div>
+		                    </div>
+		                </div>
+	            <?php
+	            	}
 	            ?>
 	            <h1 class="mt-4">
 	                Active Hours
@@ -51,6 +62,7 @@
 	                                    <th>Start Hour</th>
 	                                    <th>End Hour</th>
 	                                    <th>Minium Period</th>
+	                                    <th>Delete</th>
 	                                </tr>
 	                            </thead>
 	                            <tfoot>
@@ -61,6 +73,7 @@
 	                                    <th>Start Hour</th>
 	                                    <th>End Hour</th>
 	                                    <th>Minium Period</th>
+	                                    <th>Delete</th>
 	                                </tr>
 	                            </tfoot>
 	                        </table>
@@ -72,5 +85,6 @@
 	</div>
 </div>
 <?php
+	echo "<p style='display:none' id='apiToken'>".get_api_token_laravel()."</p>";
 	get_footer('change');
 ?>
