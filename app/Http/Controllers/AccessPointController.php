@@ -17,7 +17,16 @@ class AccessPointController extends Controller
      */
     public function index()
     {
-        $accessPoints = AccessPoint::paginate(AccessPoint::all()->count());
+        $accessPoints = AccessPoint::paginate(AccessPoint::where('deleted_at','<>','null')->count());
+        return response()->json([
+            'data' => $accessPoints,
+        ]);
+    }
+    
+    public function disabled()
+    {
+        $accessPoints = AccessPoint::onlyTrashed()->paginate(AccessPoint::onlyTrashed()->count());
+        // $accessPoints = AccessPoint::onlyTrashed()->where('id_technical', 1)->get();
         return response()->json([
             'data' => $accessPoints,
         ]);
@@ -71,7 +80,8 @@ class AccessPointController extends Controller
      */
     public function show($accessPoint_id)
     {
-        //
+        $accessPoint = AccessPoint::where('id', $accessPoint_id)->get();
+        return redirect('wp/showaccesspoint/' . $accessPoint_id . '?id=' . $accessPoint[0]->id . '&model=' . $accessPoint[0]->model . '&location=' .$accessPoint[0]->location . '&latitude=' . $accessPoint[0]->latitude . '&longitude=' . $accessPoint[0]->longitude);
     }
 
     /**
@@ -82,7 +92,9 @@ class AccessPointController extends Controller
      */
     public function edit($accessPoint_id)
     {
-        //
+        // dd($accessPoint_id);
+        $accessPoint = AccessPoint::where('id', $accessPoint_id)->get();
+        return redirect('wp/editaccesspoint?id='. $accessPoint[0]->id .'&oldmodel=' . $accessPoint[0]->model . '&oldlocation=' . $accessPoint[0]->location . '&oldlatitude=' . $accessPoint[0]->latitude . '&oldlongitude=' . $accessPoint[0]->longitude);
     }
 
     /**
@@ -92,9 +104,16 @@ class AccessPointController extends Controller
      * @param  \App\AccessPoint  $accessPoint
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AccessPoint $accessPoint)
+    public function update(Request $request)
     {
-        //
+        $input = $this->validator($request->all())->validate();
+        try {
+            $accessPoint = AccessPoint::where('id', $request['id'])->get();
+            $accessPoint[0]->update($input);
+        } catch(\Exception $e) {
+            $result = false;
+        }
+        return redirect('wp/indexaccesspoints');
     }
 
     /**
@@ -105,6 +124,13 @@ class AccessPointController extends Controller
      */
     public function destroy(AccessPoint $accessPoint)
     {
-        //
+        try {
+            dd($accessPoint);
+            $result = $accessPoint->delete();    
+        } catch(\Exception $e) {
+            $result = false;
+        }
+        
+        return redirect('wp/indexaccesspoints');
     }
 }

@@ -22,6 +22,7 @@ jQuery(document).ready(function ($) {
     
     function getBody(response, trType) {
         var data = response.data.data;
+        console.log(response.data);
         var content = '';
         for (var i = 0; i < data.length; i++) {
             content += trType(data[i], i);
@@ -62,17 +63,46 @@ jQuery(document).ready(function ($) {
         content += `<td>${row.id_technical}</td>`;
         content += `<td>${row.model}</td>`;
         content += `<td>${row.location}</td>`;
-        content += `<td>${row.latitude}</td>`;
-        content += `<td>${row.longitude}</td>`;
+        // content += `<td>${row.latitude}</td>`;
+        // content += `<td>${row.longitude}</td>`;
         content += `<td><a href="../../accesspoint/${row.id}" class="btn btn-info"><i class="fas fa-eye"></i> View</a></td>`;
         content += `<td><a href="../../accesspoint/${row.id}/edit" class="btn btn-primary"><i class="far fa-edit"></i> Edit</a></td>`;
-        content += `<td><a href="../" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a></td>`;
+        content += `<td><a href="../" class="btn btn-danger destroy" data-toggle="modal" data-target="#exampleModal" data-id="${row.id}"><i class="fas fa-trash-alt"></i> Delete</a></td>`;
         return `<tr>${content}</tr>`;
     }
     
     if(document.getElementById('dataTableAccessPoints') != null) {
         request('../../accesspoint', '#dataTableAccessPoints', getTrAccessPoints);
     }
+    
+    var getTrDisabledAccessPoints = function(row, num) {
+        var content = '';
+        content += `<td>${num + 1}</td>`;
+        content += `<td>${row.id_technical}</td>`;
+        content += `<td>${row.model}</td>`;
+        content += `<td>${row.location}</td>`;
+        // content += `<td>${row.latitude}</td>`;
+        // content += `<td>${row.longitude}</td>`;
+        return `<tr>${content}</tr>`;
+    }
+    
+    if(document.getElementById('dataTableDisabledAccessPoints') != null) {
+        request('../../disabledaccesspoints', '#dataTableDisabledAccessPoints', getTrDisabledAccessPoints);
+    }
+    
+    let link = document.querySelectorAll('.destroy');
+    
+    var form = document.getElementById('formBorrar');
+
+    var destino = form.action;
+    
+        for(var i = link.length -1; i >=0 ; i-- ){
+            link[i].addEventListener('click', function(event){ 
+                var id = event.target.dataset.id;
+                form.action = destino + '/' + id;
+            });
+   
+        }
     
     var getTrUserAccessPoints = function(row, num) {
         var content = '';
@@ -87,6 +117,7 @@ jQuery(document).ready(function ($) {
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-power-off"></i>
                                 Connect
+                                </i>
                             </button>
                         </form>
                     </td>`;
