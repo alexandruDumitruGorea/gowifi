@@ -64,6 +64,13 @@ class TechnicalController extends Controller
         ]);
     }
     
+    private function validatorEmail(array $data)
+    {
+        return Validator::make($data, [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+    }
+    
     private function createUser(array $data)
     {
         $url = 'http://informatica.ieszaidinvergeles.org:9028/gowifi/public/wp/wp-json/custom-api/register';
@@ -108,7 +115,7 @@ class TechnicalController extends Controller
     public function edit($thecnical_id)
     {
         $technical = User::where('id', $thecnical_id)->get();
-        return redirect('wp/createtechnical?oldname=' . $technical[0]->name . '&oldemail=' . $technical[0]->email);
+        return redirect('wp/edittechnical?id='. $technical[0]->id . '&oldemail=' . $technical[0]->email);
     }
 
     /**
@@ -118,9 +125,24 @@ class TechnicalController extends Controller
      * @param  \App\Thecnical  $thecnical
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Thecnical $thecnical)
+    public function update(Request $request)
     {
-        //
+        $technical = User::where('id', $request['id'])->get();
+        if(!$this->existTechnical($request['email'])->isEmpty()) {
+            return redirect('wp/edittechnical?errorEdit=true&id='. $technical[0]->id . '&oldemail=' . $technical[0]->email);
+            exit;
+        }
+        $input = $this->validatorEmail($request->all())->validate();
+        try {
+            $technical[0]->rol_id = 1;
+            $technical[0]->sendEmailVerificationNotification();
+            $technical[0]->rol_id = 2;
+            $technical[0]->email_verified_at = null;
+            $technical[0]->update($input);
+        } catch(\Exception $e) {
+            return redirect('wp/edittechnical?errorEdit=true&id='. $technical[0]->id . '&oldemail=' . $technical[0]->email);
+        }
+        return redirect('wp/indextechnicians?edit=true');
     }
 
     /**
