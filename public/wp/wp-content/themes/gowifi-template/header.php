@@ -4,8 +4,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ecobit</title>
-    <link rel="icon" href="<?php echo get_template_directory_uri();?>/img/favicon.png">
+    <title>GoWifi</title>
+    <link rel="icon" href="<?php echo get_template_directory_uri();?>/img/logo.png">
     <?php
 		wp_head();
 	?>

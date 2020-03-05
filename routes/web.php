@@ -29,9 +29,13 @@ Route::get('csrfToken', 'NavController@csrf_token_for_wp');
 
 Route::resource('accesspoint', 'AccessPointController');
 
-Route::get('numConnectionsByDaY', 'ChartController@numConnectionsByDaY');
+Route::get('numConnectionsByMonth', 'ChartController@numConnectionsByMonth');
 
 Route::get('numAccessPointByTechnical', 'ChartController@numAccessPointByTechnical');
+
+Route::get('numConnectionByLocation', 'ChartController@numConnectionByLocation');
+
+Route::get('numConnectionsByLocation', 'ChartController@numConnectionsByLocation');
 
 Route::get('redirectwpresetpass/{token}', 'NavController@redirectwpresetpass');
 

@@ -6,8 +6,8 @@
     <section class="banner_part">
         <div class="container">
             <div class="row align-items-center justify-content-between">
-                <div class="col-lg-5">
-                    <div class="banner_img d-none d-lg-block">
+                <div class="col-lg-5 col-sm-5 container-dibu col-centered">
+                    <div class="banner_img d-lg-block">
                         <img src="<?php echo get_template_directory_uri();?>/img/banner-vector.svg" alt="">
                     </div>
                 </div>

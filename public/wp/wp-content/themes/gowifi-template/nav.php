@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand main_logo" href="index.html"> <img src="<?php echo get_template_directory_uri();?>/img/logo-text.svg" alt="logo"> </a>
-    <a class="navbar-brand single_page_logo" href="index.html"> <img src="<?php echo get_template_directory_uri();?>/img/logo-text-negro.svg" alt="logo"> </a>
+    <a class="navbar-brand main_logo" href="<?php echo get_option("Home"); ?>"> <img src="<?php echo get_template_directory_uri();?>/img/logo-text.svg" alt="logo"> </a>
+    <a class="navbar-brand single_page_logo" href="<?php echo get_option("Home"); ?>"> <img src="<?php echo get_template_directory_uri();?>/img/logo-text-negro.svg" alt="logo"> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
@@ -36,16 +36,16 @@
         if(is_user_logged_in()) {
             if(is_technical_laravel() || is_admin_laravel()) {
             ?>
-                <a href="<?php echo get_page_link(get_page_by_title('AdminPanelIndex')->ID);?>" class="d-none d-sm-block btn_1 btn_1-noborde home_page_btn">Admin</a>
+                <a href="<?php echo get_page_link(get_page_by_title('AdminPanelIndex')->ID);?>" class="d-sm-block btn_1 btn_1-noborde home_page_btn">Admin</a>
             <?php
             }
             ?>
-            <a href="<?php echo get_home_url(); ?>/../logout" class="d-none d-sm-block btn_1 home_page_btn">Log out</a>
+            <a href="<?php echo get_home_url(); ?>/../logout" class="d-sm-block btn_1 home_page_btn">Log out</a>
         <?php
         } else {
         ?>
-            <a href="<?php echo get_home_url() . '/wp-login.php'; ?>" class="d-none d-sm-block btn_1 btn_1-noborde home_page_btn">login</a>
-            <a href="<?php echo get_page_link(get_page_by_title('Register')->ID);?>" class="d-none d-sm-block btn_1 home_page_btn">Register</a>
+            <a href="<?php echo get_home_url() . '/wp-login.php'; ?>" class="d-sm-block btn_1 btn_1-noborde home_page_btn">login</a>
+            <a href="<?php echo get_page_link(get_page_by_title('Register')->ID);?>" class="d-sm-block btn_1 home_page_btn">Register</a>
         <?php
         }
     ?>
