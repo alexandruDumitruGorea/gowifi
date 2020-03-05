@@ -3,7 +3,7 @@
     	wp_redirect( get_page_link(get_page_by_title('AdminPanelIndex')->ID) . '?nopermision=true' );
 	}
     /*
-        Template name: IndexAccessPoints
+        Template name: DisabledAccessPoints
     */
 ?>
 <?php
@@ -48,33 +48,29 @@
 	    <main>
 	        <div class="container-fluid">
 	            <?php
-	            	if ( isset($_GET['accesspointCreate']) && isset($messages['accesspointCreate'])) {
+	            	if ( isset($_GET['disabledAccesspointCreate']) && isset($messages['disabledAccesspointCreate'])) {
 	            ?>
 		            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
 		                    <div class="card bg-success text-white mb-4">
-		                        <div class="card-body"><?php echo $messages['accesspointCreate']; ?></div>
+		                        <div class="card-body"><?php echo $messages['disabledAccesspointCreate']; ?></div>
 		                    </div>
 		                </div>
 	            <?php
 	            	}
 	            ?>
 	            <h1 class="mt-4">
-	                Access Points
-	                <a href="<?php echo get_page_link(get_page_by_title('CreateAccessPoint')->ID);?>" class="btn btn-primary ml-2">Add Access Point</a>
+	                Disabled Access Points
                 </h1>
 	            <div class="card mb-4">
 	                <div class="card-body">
 	                    <div class="table-responsive">
-	                        <table class="table table-bordered" id="dataTableAccessPoints" width="100%" cellspacing="0">
+	                        <table class="table table-bordered" id="dataTableDisabledAccessPoints" width="100%" cellspacing="0">
 	                            <thead>
 	                                <tr>
 	                                	<th>#</th>
 	                                    <th>Id Technical</th>
 	                                    <th>Model</th>
 	                                    <th>Location</th>
-	                                    <th>View</th>
-	                                    <th>Edit</th>
-	                                    <th>Delete</th>
 	                                </tr>
 	                            </thead>
 	                            <tfoot>
@@ -83,9 +79,6 @@
 	                                    <th>Id Technical</th>
 	                                    <th>Model</th>
 	                                    <th>Location</th>
-	                                    <th>View</th>
-	                                    <th>Edit</th>
-	                                    <th>Delete</th>
 	                                </tr>
 	                            </tfoot>
 	                        </table>
