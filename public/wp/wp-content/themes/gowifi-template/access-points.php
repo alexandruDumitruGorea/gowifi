@@ -28,6 +28,7 @@
 	                        <table class="table table-bordered" id="dataTableUserAccessPoints" width="100%" cellspacing="0">
 	                            <thead>
 	                                <tr>
+	                                	<th>ID</th>
 	                                    <th>Location</th>
 	                                    <th>Latitude</th>
 	                                    <th>Longitude</th>
@@ -36,6 +37,7 @@
 	                            </thead>
 	                            <tfoot>
 	                                <tr>
+	                                	<th>ID</th>
 	                                    <th>Location</th>
 	                                    <th>Latitude</th>
 	                                    <th>Longitude</th>
