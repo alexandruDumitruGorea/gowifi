@@ -34,15 +34,9 @@
                 	<a class="nav-link" href="<?php echo get_page_link(get_page_by_title('CreateAccessPoint')->ID);?>"><i class="fas fa-wifi"></i>&nbsp;Add Access Point</a>
                 </nav>
                  <nav class="sb-sidenav-menu-nested nav">
-                	<a class="nav-link" href="<?php echo get_page_link(get_page_by_title('DisabledAccessPoints')->ID);?>"><i class="fas fa-wifi-slash"></i>&nbsp;Disabled Access Point</a>
+                	<a class="nav-link" href="<?php echo get_page_link(get_page_by_title('DisabledAccessPoints')->ID);?>"><i class="fas fa-wifi tachado"></i>&nbsp;Disabled Access Point</a>
                 </nav>
             </div>
-            <a class="nav-link" href="charts.html">
-            	<div class="sb-nav-link-icon">
-            		<i class="fas fa-chart-area"></i>
-            	</div>
-                Charts
-            </a>
             <a class="nav-link" href="<?php echo get_page_link(get_page_by_title('IndexActiveHours')->ID);?>" data-target="#collapseActiveHours" aria-expanded="true" aria-controls="collapseActiveHours">
             	<div class="sb-nav-link-icon"><i class="fas fa-calendar-check"></i></div>
                 Active Hours

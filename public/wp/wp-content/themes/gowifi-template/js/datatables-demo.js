@@ -94,15 +94,18 @@ jQuery(document).ready(function ($) {
     
     var form = document.getElementById('formBorrar');
 
-    var destino = form.action;
-    
-        for(var i = link.length -1; i >=0 ; i-- ){
-            link[i].addEventListener('click', function(event){ 
-                var id = event.target.dataset.id;
-                form.action = destino + '/' + id;
-            });
-   
-        }
+    if(form !== null) {
+        var destino = form.action;
+        
+            for(var i = link.length -1; i >=0 ; i-- ){
+                link[i].addEventListener('click', function(event){ 
+                    var id = event.target.dataset.id;
+                    console.log(id);
+                    form.action = destino + '/' + id;
+                });
+       
+            }
+    }
     
     var getTrUserAccessPoints = function(row, num) {
         var content = '';

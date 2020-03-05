@@ -44,3 +44,5 @@ Route::post('connectionuser', 'ConnectionController@storeconection');
 Route::resource('activehour', 'ActiveController');
 
 Route::delete('delactivehour/{activeid}', 'ActiveController@destroy');
+
+Route::get('disabledaccesspoints', 'AccessPointController@disabled');
