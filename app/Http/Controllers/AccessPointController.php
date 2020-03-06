@@ -122,10 +122,11 @@ class AccessPointController extends Controller
      * @param  \App\AccessPoint  $accessPoint
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AccessPoint $accessPoint)
+    public function destroy($accessPointId)
     {
+        $accessPoint = AccessPoint::where('id', $accessPointId)->get();
         try {
-            $result = $accessPoint->delete();    
+            $result = $accessPoint[0]->delete();    
         } catch(\Exception $e) {
             $result = false;
         }

@@ -91,21 +91,24 @@ jQuery(document).ready(function ($) {
         request('../../disabledaccesspoints', '#dataTableDisabledAccessPoints', getTrDisabledAccessPoints);
     }
     
-    let link = document.querySelectorAll('.destroy');
-    
     var form = document.getElementById('formBorrar');
 
     if(form !== null) {
-        var destino = form.action;
-        
+        setTimeout(function(){
+            let link = document.querySelectorAll('.destroy');
+            console.log(link);
             for(var i = link.length -1; i >=0 ; i-- ){
                 link[i].addEventListener('click', function(event){ 
+                    // var id = event.target.dataset.id;
                     var id = event.target.dataset.id;
                     console.log(id);
-                    form.action = destino + '/' + id;
+                    form.action = destino + id;
                 });
        
             }
+        }, 500);
+        
+        var destino = form.action;
     }
     
     var getTrUserAccessPoints = function(row, num) {

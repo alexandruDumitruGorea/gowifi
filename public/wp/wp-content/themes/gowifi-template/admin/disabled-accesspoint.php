@@ -71,6 +71,7 @@
 	                                    <th>Id Technical</th>
 	                                    <th>Model</th>
 	                                    <th>Location</th>
+	                                    <th>Enable</th>
 	                                </tr>
 	                            </thead>
 	                            <tfoot>
@@ -79,6 +80,7 @@
 	                                    <th>Id Technical</th>
 	                                    <th>Model</th>
 	                                    <th>Location</th>
+	                                    <th>Enable</th>
 	                                </tr>
 	                            </tfoot>
 	                        </table>
