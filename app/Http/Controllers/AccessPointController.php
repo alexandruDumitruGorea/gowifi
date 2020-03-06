@@ -125,12 +125,17 @@ class AccessPointController extends Controller
     public function destroy(AccessPoint $accessPoint)
     {
         try {
-            dd($accessPoint);
             $result = $accessPoint->delete();    
         } catch(\Exception $e) {
             $result = false;
         }
         
         return redirect('wp/indexaccesspoints');
+    }
+    
+    public function restoreAccessPoint(Request $request, $id)
+    {
+        AccessPoint::withTrashed()->find($id)->restore();
+        return redirect('wp/disabledaccesspoints');
     }
 }

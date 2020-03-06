@@ -19,6 +19,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('disabledaccesspoints', 'AccessPointController@disabled');
 
+Route::get('disabledaccesspoints/{id}/restore', 'AccessPointController@restoreAccessPoint');
+
 Route::get('logout', 'NavController@logout');
 
 Route::get('sabersiconectado', 'NavController@sabersiconectado');

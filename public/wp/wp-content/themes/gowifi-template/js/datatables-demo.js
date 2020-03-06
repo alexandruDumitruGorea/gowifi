@@ -81,6 +81,7 @@ jQuery(document).ready(function ($) {
         content += `<td>${row.id_technical}</td>`;
         content += `<td>${row.model}</td>`;
         content += `<td>${row.location}</td>`;
+        content += `<td><a href="../../disabledaccesspoints/${row.id}/restore" class="btn btn-success"><i class="far fa-edit"></i>Enable</a></td>`
         // content += `<td>${row.latitude}</td>`;
         // content += `<td>${row.longitude}</td>`;
         return `<tr>${content}</tr>`;
