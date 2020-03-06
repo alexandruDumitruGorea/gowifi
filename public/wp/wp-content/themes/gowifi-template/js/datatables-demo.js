@@ -96,12 +96,9 @@ jQuery(document).ready(function ($) {
     if(form !== null) {
         setTimeout(function(){
             let link = document.querySelectorAll('.destroy');
-            console.log(link);
             for(var i = link.length -1; i >=0 ; i-- ){
                 link[i].addEventListener('click', function(event){ 
-                    // var id = event.target.dataset.id;
                     var id = event.target.dataset.id;
-                    console.log(id);
                     form.action = destino + id;
                 });
        
