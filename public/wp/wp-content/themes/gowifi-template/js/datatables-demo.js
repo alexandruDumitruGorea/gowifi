@@ -95,15 +95,18 @@ jQuery(document).ready(function ($) {
     
     var form = document.getElementById('formBorrar');
 
-    var destino = form.action;
-    
-        for(var i = link.length -1; i >=0 ; i-- ){
-            link[i].addEventListener('click', function(event){ 
-                var id = event.target.dataset.id;
-                form.action = destino + '/' + id;
-            });
-   
-        }
+    if(form !== null) {
+        var destino = form.action;
+        
+            for(var i = link.length -1; i >=0 ; i-- ){
+                link[i].addEventListener('click', function(event){ 
+                    var id = event.target.dataset.id;
+                    console.log(id);
+                    form.action = destino + '/' + id;
+                });
+       
+            }
+    }
     
     var getTrUserAccessPoints = function(row, num) {
         var content = '';
@@ -116,7 +119,7 @@ jQuery(document).ready(function ($) {
                             <input type="hidden" name="id_access_point" value="${row.id}">
                             <input type="hidden" name="api_token" value="${document.getElementById('apiToken').textContent}">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-power-off">
+                                <i class="fas fa-power-off"></i>
                                 Connect
                                 </i>
                             </button>
@@ -137,6 +140,16 @@ jQuery(document).ready(function ($) {
         content += `<td>${row.start_hour}</td>`;
         content += `<td>${row.end_hour}</td>`;
         content += `<td>${row.minium_period}</td>`;
+        content += `<td>
+                        <form method="POST" action="../../delactivehour/${row.id}">
+                            <input type="hidden" name="api_token" value="${document.getElementById('apiToken').textContent}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                                Delete
+                            </button>
+                        </form>
+                    </td>`;
         return `<tr>${content}</tr>`;
     }
     

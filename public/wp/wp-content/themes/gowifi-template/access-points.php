@@ -11,14 +11,34 @@
 ?>
 <?php
 	$messages = [
-		'technicalCreate' => 'Se ha creado un técnico.'
+		'connection' => 'Te has conectado.',
+		'connectionError' => 'Ha habido un error en la conexión',
 	];
-	var_dump();
 ?>
-<div id="layoutSidenav">
+<div id="layoutSidenav" class="sin-m">
 	<div id="layoutSidenav_content">
 	    <main>
-	        <div class="col-md-8 col-sm-12 col-centered">
+	        <div class="col-lg-8 col-md-12 col-sm-12 col-centered">
+	    	<?php
+            	if ( isset($_GET['connection']) && isset($messages['connection'])) {
+            ?>
+	            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
+	                    <div class="card bg-success text-white mb-4">
+	                        <div class="card-body"><?php echo $messages['connection']; ?></div>
+	                    </div>
+	                </div>
+            <?php
+            	}
+            	if ( isset($_GET['connectionError']) && isset($messages['connectionError'])) {
+            ?>
+	            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
+	                    <div class="card bg-danger text-white mb-4">
+	                        <div class="card-body"><?php echo $messages['connectionError']; ?></div>
+	                    </div>
+	                </div>
+            <?php
+            	}
+            ?>
 	            <h1 class="mt-4">
 	                Connect To Access Points
                 </h1>
@@ -28,7 +48,7 @@
 	                        <table class="table table-bordered" id="dataTableUserAccessPoints" width="100%" cellspacing="0">
 	                            <thead>
 	                                <tr>
-	                                	<th>ID</th>
+	                                	<th>#</th>
 	                                    <th>Location</th>
 	                                    <th>Latitude</th>
 	                                    <th>Longitude</th>
@@ -37,7 +57,7 @@
 	                            </thead>
 	                            <tfoot>
 	                                <tr>
-	                                	<th>ID</th>
+	                                	<th>#</th>
 	                                    <th>Location</th>
 	                                    <th>Latitude</th>
 	                                    <th>Longitude</th>

@@ -6,9 +6,11 @@ use App\Active;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class ActiveController extends Controller
 {
+    private $dateInRange;
     /**
      * Display a listing of the resource.
      *
@@ -24,20 +26,62 @@ class ActiveController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), $this->rules(), $this->messages());
+        $errors = '&start_date='.$request['start_date'].'&end_date='.$request['end_date'].'&start_hour='.$request['start_hour'].'&end_hour='.$request['end_hour'].'&minium_period='.$request['minium_period'];
+        $validator = Validator::make($request->all(), $this->rules(), $this->messages(), $this->attributes());
         if($validator->fails()) {
-            return redirect('wp/createactivehour?errorCreateActiveHour=true&start_date='.$request['start_date'].
-                            '&end_date='.$request['end_date'].'&start_hour='.$request['start_hour'].'&end_hour='.$request['end_hour'].'&minium_period='.$request['minium_period']);
-            // dd($validator->errors()->get('start_date') === null);
+            if(!empty($validator->errors()->get('start_date'))) {
+                $errors = $errors.'&starDateProblem=true';
+            }
+            if(!empty($validator->errors()->get('end_hour'))) {
+                $errors = $errors.'&endHourProblem=true';
+            }
+            return redirect('wp/createactivehour?errorCreateActiveHour=true'.$errors);
         }
         // CREAR ALGORITMO VALIDO
-        try {
-            $this->createActiveHour($request->all());
-        } catch(\Exception $e) {
-            return redirect('wp/createactivehour?errorCreateActiveHour=true&start_date='.$request['start_date'].
-                            '&end_date='.$request['end_date'].'&start_hour='.$request['start_hour'].'&end_hour='.$request['end_hour'].'&minium_period='.$request['minium_period']);
+        $insert = true;
+        // Existe y encima entá dentro del rango
+        if($this->existInDateRange($request['start_date']) && ($request['start_date'] !== $this->dateInRange[0]->end_date)) {
+            // FUERA
+            $errors = $errors.'&dateExists=true';
+            $insert = false;
         }
-        return redirect('wp/indexactivehours?activeHourCreate=true');
+        // Existe pero la fecha de inicio es igual a la fecha final del rango
+        else if($this->existInDateRange($request['start_date']) && ($request['start_date'] === $this->dateInRange[0]->end_date)) {
+            // Comprueba horas
+            // Existe en rango de horas
+            if($request['start_hour'] >= $this->dateInRange[0]->start_hour && $request['start_hour'] <= $this->dateInRange[0]->end_hour){
+                $errors = $errors.'&hourExistsInDate=true';
+                // FUERA
+                $insert = false;
+            }
+            // Si la hora de inicio es mayor a la hora final del rango 
+            else if ($request['start_hour'] > $this->dateInRange[0]->end_hour) {
+                // GUARDA
+                $insert = true;
+            }
+        }
+        // Si no existe en el rango
+        else {
+            // GUARDA
+            $insert = true;
+        }
+        // FIN CREAR ALGORITMO
+        if($insert) {
+            try {
+                $this->createActiveHour($request->all());
+            } catch(\Exception $e) {
+                return redirect('wp/createactivehour?errorCreateActiveHour=true'.$errors);
+            }
+            return redirect('wp/indexactivehours?activeHourCreate=true');
+        } else {
+            return redirect('wp/createactivehour?errorCreateActiveHour=true'.$errors);
+        }
+    }
+    
+    private function existInDateRange($startDate) {
+        $date = \DB::select("SELECT * FROM active WHERE deleted_at IS NULL AND '$startDate' BETWEEN start_date AND end_date");
+        $this->dateInRange = $date;
+        return !empty($date);
     }
     
     private function createActiveHour(array $data)
@@ -68,49 +112,24 @@ class ActiveController extends Controller
             'end_hour.after'                => 'La :attribute debe de ser mayor a la start_hour'
         ];
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Active  $active
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Active $active)
-    {
-        //
+    
+    private function attributes() {
+        return [
+            'start_date' => "Fecha inicio",
+        ];
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Active  $active
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Active $active)
+    public function destroy(Request $request, $active_id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Active  $active
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Active $active)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Active  $active
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Active $active)
-    {
-        //
+        $user = User::where('api_token', $request['api_token'])->first();
+        if($user !== null) {
+            $active = Active::find($active_id);
+            try{
+                $active->delete();
+                return redirect('wp/indexactivehours?activeHourDelete=true');
+            } catch(\Exception $e) {
+                $result = false;
+            }
+        }
     }
 }

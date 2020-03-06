@@ -6419,3 +6419,8 @@ a.glink {
 .main_menu .main-menu-item ul li .nav-link {
   text-align: center;
 }
+
+.sb-topnav {
+  position: sticky !important;
+  top: 122px;
+}

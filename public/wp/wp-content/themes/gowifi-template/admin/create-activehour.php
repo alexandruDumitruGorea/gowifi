@@ -12,6 +12,10 @@
 <?php
 	$messages = [
 		'errorCreateActiveHour' => 'Se ha producido un error en la creación. <strong>Revisa los datos</strong>',
+		'starDateProblem' => 'La fecha de inicio tiene que ser igual o mayor a la fecha de hoy',
+		'endHourProblem' => 'La hora final tiene que ser mayor a la hora de inicio',
+		'dateExists' => 'Este rango de fechas ya existe',
+		'hourExistsInDate' => 'Ya existe esa hora en un rango de fechas',
 	];
 ?>
 <div id="layoutSidenav">
@@ -30,6 +34,42 @@
 		            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
 		                    <div class="card bg-danger text-white mb-4">
 		                        <div class="card-body"><?php echo $messages['errorCreateActiveHour']; ?></div>
+		                    </div>
+		                </div>
+	            <?php
+	            	}
+	            	if ( isset($_GET['starDateProblem']) && isset($messages['starDateProblem'])) {
+	            ?>
+		            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
+		                    <div class="card bg-danger text-white mb-4">
+		                        <div class="card-body"><?php echo $messages['starDateProblem']; ?></div>
+		                    </div>
+		                </div>
+	            <?php
+	            	}
+	            	if ( isset($_GET['endHourProblem']) && isset($messages['endHourProblem'])) {
+	            ?>
+		            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
+		                    <div class="card bg-danger text-white mb-4">
+		                        <div class="card-body"><?php echo $messages['endHourProblem']; ?></div>
+		                    </div>
+		                </div>
+	            <?php
+	            	}
+	            	if ( isset($_GET['dateExists']) && isset($messages['dateExists'])) {
+	            ?>
+		            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
+		                    <div class="card bg-danger text-white mb-4">
+		                        <div class="card-body"><?php echo $messages['dateExists']; ?></div>
+		                    </div>
+		                </div>
+	            <?php
+	            	}
+	            	if ( isset($_GET['hourExistsInDate']) && isset($messages['hourExistsInDate'])) {
+	            ?>
+		            	<div class="col-xl-12 col-md-12 mt-4" id="custom-message">
+		                    <div class="card bg-danger text-white mb-4">
+		                        <div class="card-body"><?php echo $messages['hourExistsInDate']; ?></div>
 		                    </div>
 		                </div>
 	            <?php

@@ -1,6 +1,10 @@
     <?php
 		wp_head();
 	?>
+	<head>
+	    <title>GoWifi</title>
+        <link rel="icon" href="<?php echo get_template_directory_uri();?>/img/logo.png">
+    </head>
     <!--::header part start::-->
     <header class="main_menu main_menu-laravel main_menu-wp">
         <div class="container">
