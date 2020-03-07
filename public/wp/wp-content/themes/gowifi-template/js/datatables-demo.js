@@ -49,12 +49,26 @@ jQuery(document).ready(function ($) {
             content += `<td><i class="fas fa-check fa-2x text-success"></i></td>`;
         }
         content += `<td><a href="../../technical/${row.id}/edit" class="btn btn-primary"><i class="far fa-edit"></i> Edit</a></td>`;
-        content += `<td><a href="../" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</a></td>`;
+        content += `<td><a href="../" class="btn btn-danger destroy" data-toggle="modal" data-target="#exampleModal" data-id="${row.id}"><i class="fas fa-trash-alt"></i> Delete</a></td>`;
         return `<tr>${content}</tr>`;
     }
     
     if(document.getElementById('dataTableTechnicians') != null) {
         request('../../technical', '#dataTableTechnicians', getTrTechnicians);
+    }
+    
+    var getTrDisabledTechnicians = function(row, num) {
+        var content = '';
+        content += `<td>${num + 1}</td>`;
+        content += `<td>${row.name}</td>`;
+        content += `<td>${row.email}</td>`;
+        content += `<td><i class="fas fa-times fa-2x text-danger"></i></td>`;
+        content += `<td><a href="../../disabledtechnical/${row.id}/restore" class="btn btn-success"><i class="far fa-edit"></i>Enable</a></td>`
+        return `<tr>${content}</tr>`;
+    }
+    
+    if(document.getElementById('dataTableDisabledTechnicians') != null) {
+        request('../../disabledtechnical', '#dataTableDisabledTechnicians', getTrDisabledTechnicians);
     }
     
     var getTrAccessPoints = function(row, num) {

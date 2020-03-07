@@ -11,6 +11,11 @@ use App\User;
 class ActiveController extends Controller
 {
     private $dateInRange;
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

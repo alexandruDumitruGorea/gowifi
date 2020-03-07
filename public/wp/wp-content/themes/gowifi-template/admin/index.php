@@ -11,7 +11,7 @@
 ?>
 <?php
 	$messages = [
-		'nopermision' => 'No tienes permiso para acceder.'
+		'nopermision' => 'You do not have permission to access.'
 	];
 ?>
 <div id="layoutSidenav">

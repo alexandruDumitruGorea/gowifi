@@ -20,6 +20,9 @@
                     <nav class="sb-sidenav-menu-nested nav">
                     	<a class="nav-link" href="<?php echo get_page_link(get_page_by_title('CreateTechnical')->ID);?>"><i class="fas fa-user-plus"></i>&nbsp;Add Technical</a>
                     </nav>
+                    <nav class="sb-sidenav-menu-nested nav">
+                    	<a class="nav-link" href="<?php echo get_page_link(get_page_by_title('DisabledTechnicians')->ID);?>"><i class="fas fa-user-times"></i>&nbsp;Disabled Technicians</a>
+                    </nav>
                 </div>
             <?php } ?>
 			<a class="nav-link" href="<?php echo get_page_link(get_page_by_title('IndexAccessPoints')->ID);?>"  data-target="#collapseAccessPoint" aria-expanded="true" aria-controls="collapseAccessPoint">

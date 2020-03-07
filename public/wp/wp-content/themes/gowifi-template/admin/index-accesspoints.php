@@ -11,32 +11,32 @@
 ?>
 <?php
 	$messages = [
-		'accesspointCreate' => 'Se ha creado un punto de acceso.'
+		'accesspointCreate' => 'An access point has been created.'
 	];
 ?>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Borrar</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	        	<input id="id" type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        ¿Está seguro de que quiere borrar?
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-	        <form id="formBorrar" action="../../accesspoint/" method="post">
-	          <input type="hidden" name="_method" value="DELETE">
-	          <input type="submit" value="Si" class="btn btn-danger">
-	        </form>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Borrar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        	<input id="id" type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro de que quiere borrar?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        <form id="formBorrar" action="../../accesspoint/" method="post">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Si" class="btn btn-danger">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="layoutSidenav">
 	<div id="layoutSidenav_nav">
 	    <?php get_template_part('nav-admin'); ?>

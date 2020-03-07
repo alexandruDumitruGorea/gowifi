@@ -50,14 +50,18 @@ class LoginController extends Controller
         }
         if ($this->attemptLogin($request)) {
             $user = \Illuminate\Support\Facades\Auth::user();
-            if($user->hasVerifiedEmail()) {
+            if($user->hasVerifiedEmail() && $user->disabled == 0) {
                 // Logeado
                 $this->sendLoginResponse($request);
                 return redirect('wp/wp-json/custom-api/login?email=' . $request['email'] . '&password=' . $request['password']);
             } else {
-                $user->sendEmailVerificationNotification();
-                \Illuminate\Support\Facades\Auth::logout();
-                return redirect('wp/wp-login.php?noverify=true');
+                if($user->disabled == 0) {
+                    $user->sendEmailVerificationNotification();
+                    \Illuminate\Support\Facades\Auth::logout();
+                    return redirect('wp/wp-login.php?noverify=true');
+                } else {
+                    return redirect('wp');
+                }
             }
         } else {
             return redirect('wp/wp-login.php?loginfail=true');

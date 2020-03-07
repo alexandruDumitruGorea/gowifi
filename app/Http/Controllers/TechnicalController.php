@@ -17,6 +17,11 @@ class TechnicalController extends Controller
     
     use RegistersUsers;
     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +29,17 @@ class TechnicalController extends Controller
      */
     public function index()
     {
-        $technicals = User::where('rol_id', '2')->paginate(User::where('rol_id', '2')->count());
+        $technicians = User::where([['rol_id', '=', '2'],['disabled', '=', '0']])->paginate(User::where([['rol_id', '=', '2'],['disabled', '=', '0']])->count());
         return response()->json([
-            'data' => $technicals,
+            'data' => $technicians,
+        ]);
+    }
+    
+    public function disabled()
+    {
+        $technicians = User::where([['rol_id', '=', '2'],['disabled', '=', '1']])->paginate(User::where([['rol_id', '=', '2'],['disabled', '=', '1']])->count());
+        return response()->json([
+            'data' => $technicians,
         ]);
     }
 
@@ -112,9 +125,9 @@ class TechnicalController extends Controller
      * @param  \App\Thecnical  $thecnical
      * @return \Illuminate\Http\Response
      */
-    public function edit($thecnical_id)
+    public function edit($technical_id)
     {
-        $technical = User::where('id', $thecnical_id)->get();
+        $technical = User::where('id', $technical_id)->get();
         return redirect('wp/edittechnical?id='. $technical[0]->id . '&oldemail=' . $technical[0]->email);
     }
 
@@ -151,8 +164,26 @@ class TechnicalController extends Controller
      * @param  \App\Thecnical  $thecnical
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thecnical $thecnical)
+    public function destroy($technical_id)
     {
-        //
+        $technical = User::where('id', $technical_id)->get();
+        try {
+            $technical[0]->disabled = 1;
+            $technical[0]->save();
+        } catch(\Exception $e) {
+        }
+        
+        return redirect('wp/indextechnicians?disabled=true');
+    }
+    
+    public function restoretechnical($technical_id)
+    {
+        $technical = User::where('id', $technical_id)->get();
+        try {
+            $technical[0]->disabled = 0;
+            $technical[0]->save();
+        } catch(\Exception $e) {
+        }
+        return redirect('wp/disabledtechnicians?enabled=true');
     }
 }

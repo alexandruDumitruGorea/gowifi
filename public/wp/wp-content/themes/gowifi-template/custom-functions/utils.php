@@ -12,13 +12,13 @@ function adapt_header_for_wpadminbar() {
 
 //Ocultar admin bar a todos los suscriptores, 
 function bld_ocultar_admin_bar() {
-    if (current_user_can('subscriber')) {
-        add_filter( 'show_admin_bar', '__return_false' );
-    } else {
+    // if (current_user_can('subscriber')) {
+    //     add_filter( 'show_admin_bar', '__return_false' );
+    // } else {
         if(is_user_logged_in()) {
             add_action('init', 'adapt_header_for_wpadminbar');
         }
-    }
+    // }
 }
 add_action('after_setup_theme', 'bld_ocultar_admin_bar');
 

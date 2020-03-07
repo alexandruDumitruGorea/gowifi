@@ -27,6 +27,10 @@ Route::get('sabersiconectado', 'NavController@sabersiconectado');
 
 Route::resource('technical', 'TechnicalController');
 
+Route::get('disabledtechnical', 'TechnicalController@disabled');
+
+Route::get('disabledtechnical/{id}/restore', 'TechnicalController@restoretechnical');
+
 Route::post('role', 'NavController@role');
 
 Route::get('csrfToken', 'NavController@csrf_token_for_wp');
@@ -48,3 +52,7 @@ Route::post('connectionuser', 'ConnectionController@storeconection');
 Route::resource('activehour', 'ActiveController');
 
 Route::delete('delactivehour/{activeid}', 'ActiveController@destroy');
+
+Route::fallback(function () {
+    return redirect('wp');
+});

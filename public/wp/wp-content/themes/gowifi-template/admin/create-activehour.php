@@ -11,11 +11,11 @@
 ?>
 <?php
 	$messages = [
-		'errorCreateActiveHour' => 'Se ha producido un error en la creación. <strong>Revisa los datos</strong>',
-		'starDateProblem' => 'La fecha de inicio tiene que ser igual o mayor a la fecha de hoy',
-		'endHourProblem' => 'La hora final tiene que ser mayor a la hora de inicio',
-		'dateExists' => 'Este rango de fechas ya existe',
-		'hourExistsInDate' => 'Ya existe esa hora en un rango de fechas',
+		'errorCreateActiveHour' => 'Creation failed. <strong> Review the data</strong>.',
+		'starDateProblem' => "The start date must be equal to or greater than today's date.",
+		'endHourProblem' => 'The end time must be greater than the start time.',
+		'dateExists' => 'This date range already exists.',
+		'hourExistsInDate' => 'That time already exists in a range of dates.',
 	];
 ?>
 <div id="layoutSidenav">
@@ -77,7 +77,7 @@
 	            ?>
 	            <div class="col-md-6 col-centered">
     	            <h1 class="mt-4">
-    	                Adding Access Point
+    	                Adding Active Hour
                     </h1>
     	            <div class="card mb-4">
     	                <div class="card-body">
@@ -125,7 +125,7 @@
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
-                                            Add AccessPoint
+                                            Add Active Hour
                                         </button>
                                     </div>
                                 </div>

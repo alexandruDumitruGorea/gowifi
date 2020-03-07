@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->integer('rol_id')->nullable(false);
+            $table->boolean('disabled')->nullable(true)->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

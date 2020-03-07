@@ -11,6 +11,11 @@ use App\Connection;
 
 class ChartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function numConnectionsByMonth() {
         // $connectionsOrderByDay = \DB::select('SELECT count(*) as num, date FROM connection WHERE date is not NULL group by date order by date');
         $connectionsOrderByMonth = \DB::select('SELECT count(*) as num, MONTH(date) as month, YEAR(date) as year FROM connection group by month, year order by year ASC, month ASC');

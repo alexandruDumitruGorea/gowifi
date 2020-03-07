@@ -11,7 +11,7 @@
 ?>
 <?php
 	$messages = [
-		'technicalCreateError' => 'Ha habido un error. Comprueba los datos. <strong>Pruebe otra vez</strong>.'
+		'technicalCreateError' => 'Creation failed. <strong> Review the data</strong>.'
 	];
 ?>
 <div id="layoutSidenav">
