@@ -20,7 +20,6 @@
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel">Borrar</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	        	<input id="id" type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
