@@ -1,5 +1,5 @@
 <?php
-	if(is_user_logged_in() === false || (is_user_logged_in() && !is_admin_laravel())) {
+	if(!(is_user_logged_in() || (is_user_logged_in() && is_admin_laravel()) || (is_user_logged_in() && is_technical_laravel()))) {
     	wp_redirect( get_page_link(get_page_by_title('AdminPanelIndex')->ID) . '?nopermision=true' );
 	}
     /*
@@ -11,8 +11,8 @@
 ?>
 <?php
 	$messages = [
-		'activeHourCreate' => 'Se ha creado una hora activa.',
-		'activeHourDelete' => 'Se ha borrado una hora activa.'
+		'activeHourCreate' => 'An active time has been created.',
+		'activeHourDelete' => 'An active time has been deleted.'
 	];
 ?>
 <div id="layoutSidenav">

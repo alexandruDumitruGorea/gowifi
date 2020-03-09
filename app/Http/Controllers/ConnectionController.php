@@ -12,6 +12,11 @@ use App\UserAccessPoint;
 class ConnectionController extends Controller
 {
     private $userLaravelID;
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function store(Request $request)
     {

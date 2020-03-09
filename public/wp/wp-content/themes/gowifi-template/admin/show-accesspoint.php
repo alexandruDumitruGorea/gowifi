@@ -11,7 +11,7 @@
 ?>
 <?php
 	$messages = [
-		'accesspointCreate' => 'Se ha creado un punto de acceso.'
+		'accesspointCreate' => 'An access point has been created.'
 	];
 ?>
 <div id="layoutSidenav">

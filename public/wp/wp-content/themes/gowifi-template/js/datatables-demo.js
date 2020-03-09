@@ -57,6 +57,20 @@ jQuery(document).ready(function ($) {
         request('../../technical', '#dataTableTechnicians', getTrTechnicians);
     }
     
+    var getTrDisabledTechnicians = function(row, num) {
+        var content = '';
+        content += `<td>${num + 1}</td>`;
+        content += `<td>${row.name}</td>`;
+        content += `<td>${row.email}</td>`;
+        content += `<td><i class="fas fa-times fa-2x text-danger"></i></td>`;
+        content += `<td><a href="../../disabledtechnical/${row.id}/restore" class="btn btn-success"><i class="far fa-edit"></i>Enable</a></td>`
+        return `<tr>${content}</tr>`;
+    }
+    
+    if(document.getElementById('dataTableDisabledTechnicians') != null) {
+        request('../../disabledtechnical', '#dataTableDisabledTechnicians', getTrDisabledTechnicians);
+    }
+    
     var getTrAccessPoints = function(row, num) {
         var content = '';
         content += `<td>${num + 1}</td>`;
