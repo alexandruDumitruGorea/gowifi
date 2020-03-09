@@ -60,6 +60,7 @@ class LoginController extends Controller
                     \Illuminate\Support\Facades\Auth::logout();
                     return redirect('wp/wp-login.php?noverify=true');
                 } else {
+                    \Illuminate\Support\Facades\Auth::logout();
                     return redirect('wp');
                 }
             }
