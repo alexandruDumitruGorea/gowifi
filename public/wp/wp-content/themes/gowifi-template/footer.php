@@ -5,9 +5,6 @@
                 <div class="col-sm-8 col-md-4 col-lg-4">
                     <div class="single_footer_part">
                         <a href="index.html" class="footer_logo_iner"> <img src="<?php echo get_template_directory_uri();?>/img/logo-text-negro.svg" alt="#"> </a>
-                        <p>Gathered. Under is whose you'll to make years is mat lights thing together fish made
-                            forth thirds cattle behold won't. Fourth creeping first female.
-                        </p>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-2">
@@ -63,7 +60,7 @@
                 <div class="col-lg-8">
                     <div class="copyright_text">
                         <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
                     </div>
                 </div>
