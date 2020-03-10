@@ -8,21 +8,21 @@ jQuery(document).ready(function ($) {
             dataType : 'json',
         })
         .done(function( json ) {
-            console.log('ajax done');
-            console.log(json);
+            // console.log('ajax done');
+            // console.log(json);
             callBack(json);
         })
         .fail(function( xhr, status, errorThrown ) {
-            console.log('ajax fail');
+            // console.log('ajax fail');
         })
         .always(function( xhr, status ) {
-            console.log('ajax always');
+            // console.log('ajax always');
         });
     };
     
     function getBody(response, trType) {
         var data = response.data.data;
-        console.log(response.data);
+        // console.log(response.data);
         var content = '';
         for (var i = 0; i < data.length; i++) {
             content += trType(data[i], i);

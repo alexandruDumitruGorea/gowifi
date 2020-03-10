@@ -7,15 +7,15 @@ jQuery(document).ready(function ($) {
             dataType : 'json',
         })
         .done(function( json ) {
-            console.log('ajax done');
-            console.log(json);
+            // console.log('ajax done');
+            // console.log(json);
             callBack(json);
         })
         .fail(function( xhr, status, errorThrown ) {
-            console.log('ajax fail');
+            // console.log('ajax fail');
         })
         .always(function( xhr, status ) {
-            console.log('ajax always');
+            // console.log('ajax always');
         });
     };
     
