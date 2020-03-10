@@ -278,8 +278,6 @@ jQuery(document).ready(function ($) {
               }
             })
             
-            console.log(values);
-            
             var ctx = document.getElementById("numConnectionsByLocation");
             var myLineChart = new Chart(ctx, {
               type: 'bar',
@@ -325,5 +323,71 @@ jQuery(document).ready(function ($) {
     }
     if(document.getElementById("numConnectionsByLocation") != null) {
       numConnectionsByLocation();
+    }
+    
+    var numConnectionsByModel = function () {
+        var models = [];
+        var values = [];
+        var colors = [];
+        genericAjax('../../numConnectionsByModel', null , 'get', function(response){
+            response.data.forEach(function(element) {
+              for (const data in element) {
+                if(data == 'model') {
+                  models.push(element[data]);
+                } else {
+                  values.push(element[data]);
+                }
+              }
+              colors.push(`rgba(${getRandomInt()},${getRandomInt()},${getRandomInt()},${getRandomInt()})`);
+            })
+            
+            var ctx = document.getElementById("numConnectionsByModel");
+            var myLineChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                labels: models,
+                datasets: [{
+                  backgroundColor: colors,
+                  data: values,
+                }],
+              }
+            });
+        });
+    }
+    if(document.getElementById("numConnectionsByModel") != null) {
+      numConnectionsByModel();
+    }
+    
+    var numAccessPointByLocation = function () {
+        var locations = [];
+        var values = [];
+        var colors = [];
+        genericAjax('../../numAccessPointByLocation', null , 'get', function(response){
+            response.data.forEach(function(element) {
+              for (const data in element) {
+                if(data == 'location') {
+                  locations.push(element[data]);
+                } else {
+                  values.push(element[data]);
+                }
+              }
+              colors.push(`rgba(${getRandomInt()},${getRandomInt()},${getRandomInt()},${getRandomInt()})`);
+            })
+            
+            var ctx = document.getElementById("numAccessPointByLocation");
+            var myLineChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                labels: locations,
+                datasets: [{
+                  backgroundColor: colors,
+                  data: values,
+                }],
+              }
+            });
+        });
+    }
+    if(document.getElementById("numAccessPointByLocation") != null) {
+      numAccessPointByLocation();
     }
 });

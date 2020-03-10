@@ -45,6 +45,10 @@ Route::get('numConnectionByLocation', 'ChartController@numConnectionByLocation')
 
 Route::get('numConnectionsByLocation', 'ChartController@numConnectionsByLocation');
 
+Route::get('numConnectionsByModel', 'ChartController@numConnectionsByModel');
+
+Route::get('numAccessPointByLocation', 'ChartController@numAccessPointByLocation');
+
 Route::get('redirectwpresetpass/{token}', 'NavController@redirectwpresetpass');
 
 Route::post('connectionuser', 'ConnectionController@storeconection');

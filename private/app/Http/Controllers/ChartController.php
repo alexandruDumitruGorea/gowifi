@@ -48,4 +48,18 @@ class ChartController extends Controller
             'data' => $connectionsOrderByLocation,
         ]);
     }
+    
+    public function numConnectionsByModel() {
+        $connectionsOrderByModel = \DB::select('SELECT count(*) as num, (SELECT model FROM access_point WHERE id = C.id_access_point) as model FROM connection as C GROUP BY model');
+        return response()->json([
+            'data' => $connectionsOrderByModel,
+        ]);
+    }
+    
+    public function numAccessPointByLocation() {
+        $numAccessPointByLocation = \DB::select('SELECT count(*) as num, location FROM access_point GROUP BY location');
+        return response()->json([
+            'data' => $numAccessPointByLocation,
+        ]);
+    }
 }
