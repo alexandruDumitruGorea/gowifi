@@ -1,0 +1,4 @@
+/private/storage/*.key
+/private/vendor
+/private/.env
+/private/.env.backup
