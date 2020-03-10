@@ -67,7 +67,7 @@
 	                </div>
 		            <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12">
 	                    <div class="card mb-4">
-	                        <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Nº Connections By Location</div>
+	                        <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Nº Access Points By Location</div>
 	                        <div class="card-body"><canvas id="numAccessPointByLocation" width="100%" height="40"></canvas></div>
 	                    </div>
 	                </div>
